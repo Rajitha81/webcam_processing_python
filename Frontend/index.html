@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processed Video Frame</title>
+</head>
+<body>
+    <h1>Processed Video Frame</h1>
+    <img id="video-frame" src="" style="border: 1px solid black; width: 80%; height: auto;">
+    <script>
+        const frameImage = document.getElementById("video-frame");
+        // Function to fetch the latest frame
+        async function fetchFrame() {
+            try {
+                const response = await fetch("http://127.0.0.1:5000/process_frame");
+                const blob = await response.blob();
+                frameImage.src = URL.createObjectURL(blob);
+            } catch (err) {
+                console.error("Error fetching frame:", err);
+            }
+        }
+        // Update the frame every 100ms
+        setInterval(fetchFrame, 100);
+    </script>
+</body>
+</html>
